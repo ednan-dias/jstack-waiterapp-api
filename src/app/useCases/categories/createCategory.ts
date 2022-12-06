@@ -6,9 +6,15 @@ export async function createCategory(req: Request, res: Response) {
   try {
     const { name, icon } = req.body;
 
+    if (!name) {
+      return res.status(400).json({
+        error: 'Name is required',
+      });
+    }
+
     const category = await Category.create({
       name,
-      icon
+      icon,
     });
 
     res.status(201).json(category);
